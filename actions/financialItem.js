@@ -1,7 +1,7 @@
 import {GET_FINANCIAL_ITEM} from "./types";
 
 export const getFinancialItem = (symbol) => async dispatch => {
-    const API_KEY = '8AMDLY6XGIMPPBBV';
+    const API_KEY = 'yourapikey';
     let finItemSymbol = symbol;
 
     let financialChartXValuesFunction = [];
