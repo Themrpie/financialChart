@@ -9,14 +9,14 @@ const LineChart = ({financialItem,financialItemName,color}) => {
                 data={[
                     {
                         x: financialItem.financialChartXValues,
-                        y: financialItem.financialChartCloseValues,
+                        y: financialItem.financialChartCloseValues ,
                         type: 'scatter',
                         mode: 'lines',
                         marker: {color: color},
                     }
                 ]}
                 layout={{width: 900, height: 640, title: financialItemName}}
-                options ={ {displaylogo: 'false'} }
+                options ={ {displaylogo: 'true'} }
             />
         </Fragment>
     );

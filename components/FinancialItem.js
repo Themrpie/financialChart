@@ -22,6 +22,7 @@ const FinancialItem = ({financialItem:{financialItem},getFinancialItem}) => {
         if (firstUpdate.current) {
             firstUpdate.current = false;
             getFinancialItem('SPY');
+            //getFinancialItem('KO');
             return;
         }
 

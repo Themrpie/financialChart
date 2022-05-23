@@ -21,8 +21,8 @@ const CandleStickChart = ({financialItem,financialItemName}) => {
                     }
                 ]}
                 layout={{
-                        width: 720,
-                        height: 440,
+                        width: 900,
+                        height: 640,
                         title: financialItemName,
                         dragmode: 'zoom',
                         showlegend: false,

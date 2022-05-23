@@ -1,7 +1,7 @@
 import {GET_FINANCIAL_ITEM} from "./types";
 
 export const getFinancialItem = (symbol) => async dispatch => {
-    const API_KEY = 'yourapikey';
+    const API_KEY = '8AMDLY6XGIMPPBBV';
     let finItemSymbol = symbol;
 
     let financialChartXValuesFunction = [];
@@ -9,7 +9,7 @@ export const getFinancialItem = (symbol) => async dispatch => {
     let financialChartOpenValuesFunction = [];
     let financialChartHighValuesFunction = [];
     let financialChartLowValuesFunction = [];
-
+// https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol=SPY&outputsize=full&apikey=8AMDLY6XGIMPPBBV
     try{
          await fetch(`https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol=${finItemSymbol}&outputsize=full&apikey=${API_KEY}`)
             .then(

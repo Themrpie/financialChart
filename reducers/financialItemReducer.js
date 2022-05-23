@@ -1,7 +1,8 @@
-import {GET_FINANCIAL_ITEM} from "../actions/types";
+import {GET_FINANCIAL_ITEM, GET_SMA} from "../actions/types";
 
 const initialState = {
-    financialItem: null
+    financialItem: null,
+    sma: null
 };
 
 export default function (state=initialState,action) {
@@ -12,7 +13,14 @@ export default function (state=initialState,action) {
             ...state,
             financialItem: payload
         };
-    } else {
+    }
+    if (type === GET_SMA) {
+        return{
+            ...state,
+            sma: payload
+        };
+    } 
+    else {
         return state
     }
 }

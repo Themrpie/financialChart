@@ -11,6 +11,7 @@ import {financialItemStyle} from './styles/financialItemStyle'
 // Redux imports
 import {connect} from 'react-redux';
 import PropTypes from 'prop-types'
+import {getFinancialItem} from "../actions/financialItem";
 import {getSma} from "../actions/sma";
 
 const Sma = ({sma:{sma},getSma}) => {
@@ -21,7 +22,7 @@ const Sma = ({sma:{sma},getSma}) => {
     useLayoutEffect(() => {
         if (firstUpdate.current) {
             firstUpdate.current = false;
-            getFinancialItem('SPY');
+            getSma('SPY');
             //getFinancialItem('KO');
             return;
         }
@@ -37,7 +38,7 @@ const Sma = ({sma:{sma},getSma}) => {
         
                 return (<LineChart
                     color='blue'
-                    financialItem={sma}
+                    sma={sma}
                     financialItemName={'SMA'}
                 />);
             
@@ -46,20 +47,20 @@ const Sma = ({sma:{sma},getSma}) => {
     return (
         <div className='financial-item-big-wrapper'>
             <div>
-                {financialItem ? displayTheRightPlot() : null }
+                {sma}
             </div>
             
         </div>
     );
 };
 
-FinancialItem.propTypes = {
-    financialItem: PropTypes.object.isRequired,
-    getFinancialItem: PropTypes.func.isRequired
+sma.propTypes = {
+    sma: PropTypes.object.isRequired,
+    getSma: PropTypes.func.isRequired
 } 
 
 const mapStateToProps = state => ({
-    financialItem: state.financialItem
+    sma: state.financialItem
 })
 
-export default connect(mapStateToProps,{getFinancialItem})(FinancialItem);
+export default connect(mapStateToProps,{getSma})(sma);
