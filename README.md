@@ -1,4 +1,5 @@
 # financialChart
 Loads financial data from alphavantage.co and creates a graph <br>
+Added: Loads different indicators
 
-<img width="827" alt="Captura de Pantalla 2022-05-01 a la(s) 16 13 59" src="https://user-images.githubusercontent.com/73369706/166163262-93e6f03c-deb3-4e0b-ad8d-47789adf5bbd.png">
+<img width="285" alt="Captura de Pantalla 2022-05-24 a la(s) 19 41 47" src="https://user-images.githubusercontent.com/73369706/170149442-810b4099-2e85-41df-b394-7671cb6a90bc.png">
