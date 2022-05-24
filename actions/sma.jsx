@@ -9,7 +9,7 @@ export const getSma = (symbol) => async dispatch => {
     
 // URL TO Check response: https://www.alphavantage.co/query?function=SMA&symbol=SPY&interval=daily&time_period=10&series_type=open&outputsize=full&apikey=8AMDLY6XGIMPPBBV
     try{
-         await fetch(`https://www.alphavantage.co/query?function=SMA&symbol=${finItemSymbol}&interval=daily&time_period=10&series_type=open&outputsize=full&apikey=${API_KEY}`)
+         await fetch(`https://www.alphavantage.co/query?function=SMA&symbol=${finItemSymbol}&interval=daily&time_period=100&series_type=open&outputsize=full&apikey=${API_KEY}`)
             .then(
                 function(response) {
                     return response.json();

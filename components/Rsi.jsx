@@ -12,9 +12,9 @@ import {financialItemStyle} from './styles/financialItemStyle'
 import {connect} from 'react-redux';
 import PropTypes from 'prop-types'
 import {getFinancialItem} from "../actions/financialItem";
-import {getSma} from "../actions/sma";
+import {getRsi} from "../actions/rsi";
 
-const Sma = ({sma:{sma},getSma}) => {
+const Rsi = ({rsi:{rsi},getRsi}) => {
     const classes = financialItemStyle();
     const [typeOfChart,setTypeOfChart] = useState('line');
     const firstUpdate = useRef(true);
@@ -22,20 +22,26 @@ const Sma = ({sma:{sma},getSma}) => {
     useLayoutEffect(() => {
         if (firstUpdate.current) {
             firstUpdate.current = false;
-            getSma('SPY');
+            getRsi('SPY');
             //getFinancialItem('KO');
             return;
         }
 
     },[]);
 
+    const handleChartChange = e => {
+        setTypeOfChart(e.target.value);
+    };
 
-    const displayTheRightPlot = () => {        
+    const displayTheRightPlot = () => {
+        //console.log(financialItem)
+        
                 return (<LineChart
-                    color='red'
-                    sma={sma}
-                    financialItemName={'SMA'}
-                    financialItem={sma}
+                    color='green'
+                    rsi={rsi}
+                    financialItemName={'RSI'}
+                    financialItem={rsi}
+                    height='200'
                 />);
             
     };
@@ -43,20 +49,20 @@ const Sma = ({sma:{sma},getSma}) => {
     return (
         <div className='financial-item-big-wrapper'>
             <div>
-                {sma ? displayTheRightPlot() : null}
+                {rsi ? displayTheRightPlot() : null}
             </div>
             
         </div>
     );
 };
 
-Sma.propTypes = {
-    sma: PropTypes.object.isRequired,
-    getSma: PropTypes.func.isRequired
+Rsi.propTypes = {
+    rsi: PropTypes.object.isRequired,
+    getRsi: PropTypes.func.isRequired
 } 
 
 const mapStateToProps = state => ({
-    sma: state.financialItem
+    rsi: state.financialItem
 })
 
-export default connect(mapStateToProps,{getSma})(Sma);
+export default connect(mapStateToProps,{getRsi})(Rsi);

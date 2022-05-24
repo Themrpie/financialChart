@@ -12,9 +12,9 @@ import {financialItemStyle} from './styles/financialItemStyle'
 import {connect} from 'react-redux';
 import PropTypes from 'prop-types'
 import {getFinancialItem} from "../actions/financialItem";
-import {getSma} from "../actions/sma";
+import {getAtr} from "../actions/atr";
 
-const Sma = ({sma:{sma},getSma}) => {
+const Atr = ({atr:{atr},getAtr}) => {
     const classes = financialItemStyle();
     const [typeOfChart,setTypeOfChart] = useState('line');
     const firstUpdate = useRef(true);
@@ -22,20 +22,25 @@ const Sma = ({sma:{sma},getSma}) => {
     useLayoutEffect(() => {
         if (firstUpdate.current) {
             firstUpdate.current = false;
-            getSma('SPY');
+            getAtr('SPY');
             //getFinancialItem('KO');
             return;
         }
 
     },[]);
 
+    const handleChartChange = e => {
+        setTypeOfChart(e.target.value);
+    };
 
-    const displayTheRightPlot = () => {        
+    const displayTheRightPlot = () => {
+        //console.log(financialItem)
+        
                 return (<LineChart
-                    color='red'
-                    sma={sma}
-                    financialItemName={'SMA'}
-                    financialItem={sma}
+                    color='orange'
+                    atr={atr}
+                    financialItemName={'ATR'}
+                    financialItem={atr}                    
                 />);
             
     };
@@ -43,20 +48,20 @@ const Sma = ({sma:{sma},getSma}) => {
     return (
         <div className='financial-item-big-wrapper'>
             <div>
-                {sma ? displayTheRightPlot() : null}
+                {atr ? displayTheRightPlot() : null}
             </div>
             
         </div>
     );
 };
 
-Sma.propTypes = {
-    sma: PropTypes.object.isRequired,
-    getSma: PropTypes.func.isRequired
+Atr.propTypes = {
+    atr: PropTypes.object.isRequired,
+    getAtr: PropTypes.func.isRequired
 } 
 
 const mapStateToProps = state => ({
-    sma: state.financialItem
+    atr: state.financialItem
 })
 
-export default connect(mapStateToProps,{getSma})(Sma);
+export default connect(mapStateToProps,{getAtr})(Atr);
