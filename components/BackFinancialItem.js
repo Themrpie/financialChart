@@ -17,7 +17,6 @@ import Sma from "./Sma";
 import Rsi from "./Rsi";
 import Atr from "./Atr";
 import Mfi from "./Mfi";
-import Bop from "./Bop";
 
 const FinancialItem = ({financialItem:{financialItem},getFinancialItem}) => {
     const classes = financialItemStyle();
@@ -42,14 +41,7 @@ const FinancialItem = ({financialItem:{financialItem},getFinancialItem}) => {
     };
 
     const displayPrice = () => {
-        switch (typeOfChart) {
-            case 'line':
-                return (<LineChart color='green' financialItem={financialItem} financialItemName={financialItem.symbol}/>);
-            case 'candlestick':
-                return (<CandleStickChart financialItem={financialItem} financialItemName={financialItem.symbol}/>);
-            default:
-                return (<LineChart color='blue' financialItem={financialItem} financialItemName={financialItem.symbol}/>);
-        }
+        return (<LineChart color='green' financialItem={financialItem} financialItemName={financialItem.symbol}/>);
     }
     const displayCandlestick = () => {
         return (<CandleStickChart financialItem={financialItem} financialItemName={financialItem.symbol}/>);
@@ -66,12 +58,18 @@ const FinancialItem = ({financialItem:{financialItem},getFinancialItem}) => {
                 return (<Atr/>);
             case 'mfi':
                 return (<Mfi/>);
-            case 'bop':
-                return (<Bop/>);    
             default:
                 return (<Sma/>);
-        }    
-        
+        }
+
+        switch (typeOfChart) {
+            case 'line':
+                displayPrice();
+            case 'candlestick':
+                displayCandlestick();
+            default:
+                displayPrice();
+        }
     };
 
     return (
@@ -90,14 +88,13 @@ const FinancialItem = ({financialItem:{financialItem},getFinancialItem}) => {
                                 id="indicator-chart-select"
                                 value={indicators} 
                                 onChange={handleIndicatorsChange}
-                                displayEmpty
+                                
                                 className={classes.selectEmpty}
                             >
                                 <MenuItem value={'sma'}><em>SMA</em></MenuItem>
                                 <MenuItem value={'rsi'}>RSI</MenuItem>
                                 <MenuItem value={'atr'}>ATR</MenuItem>
                                 <MenuItem value={'mfi'}>MFI</MenuItem>
-                                <MenuItem value={'bop'}>BOP</MenuItem>
                             </Select>
                         </FormControl> 
                 }

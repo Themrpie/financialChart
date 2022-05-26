@@ -13,13 +13,9 @@ function App(){
   return (
       <Provider store={store}>
           <div className="App">
-              <FinancialItem/>
-              <Sma/>              
+              <FinancialItem/>                            
           </div>
           <div>
-          <Rsi/>
-          <Atr/>
-          <Mfi/>
           </div>
       </Provider>
   );
