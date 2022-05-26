@@ -11,18 +11,23 @@ import {financialItemStyle} from './styles/financialItemStyle'
 // Redux imports
 import {connect} from 'react-redux';
 import PropTypes from 'prop-types'
+
 import {getFinancialItem} from "../actions/financialItem";
+import Sma from "./Sma";
+import Rsi from "./Rsi";
+import Atr from "./Atr";
+import Mfi from "./Mfi";
 
 const FinancialItem = ({financialItem:{financialItem},getFinancialItem}) => {
     const classes = financialItemStyle();
     const [typeOfChart,setTypeOfChart] = useState('line');
+    const [indicators,setIndicators] = useState('indicators');
     const firstUpdate = useRef(true);
 
     useLayoutEffect(() => {
         if (firstUpdate.current) {
             firstUpdate.current = false;
-            getFinancialItem('SPY');
-            //getFinancialItem('KO');
+            getFinancialItem('SPY');            
             return;
         }
 
@@ -31,35 +36,70 @@ const FinancialItem = ({financialItem:{financialItem},getFinancialItem}) => {
     const handleChartChange = e => {
         setTypeOfChart(e.target.value);
     };
+    const handleIndicatorsChange = e => {
+        setIndicators(e.target.value);
+    };
+
+    const displayPrice = () => {
+        return (<LineChart color='green' financialItem={financialItem} financialItemName={financialItem.symbol}/>);
+    }
+    const displayCandlestick = () => {
+        return (<CandleStickChart financialItem={financialItem} financialItemName={financialItem.symbol}/>);
+    }
 
     const displayTheRightPlot = () => {
         console.log(financialItem)
+        switch (indicators) {
+            case 'sma':
+                return (<Sma/>);
+            case 'rsi':
+                return (<Rsi/>);
+            case 'atr':
+                return (<Atr/>);
+            case 'mfi':
+                return (<Mfi/>);
+            default:
+                return (<Sma/>);
+        }
+
         switch (typeOfChart) {
             case 'line':
-                return (<LineChart
-                    color='blue'
-                    financialItem={financialItem}
-                    financialItemName={financialItem.symbol}
-                />);
+                return (<LineChart color='blue' financialItem={financialItem} financialItemName={financialItem.symbol}/>);
             case 'candlestick':
-                return (<CandleStickChart
-                    financialItem={financialItem}
-                    financialItemName={financialItem.symbol}
-                />);
+                displayCandlestick();
             default:
-                return (<LineChart
-                    color='green'
-                    financialItem={financialItem}
-                    financialItemName={financialItem.symbol}
-                />);
+                displayPrice();
         }
     };
 
     return (
         <div className='financial-item-big-wrapper'>
-            <div>
-                {financialItem ? displayTheRightPlot() : null }
+         <div>
+
+                {financialItem ? displayPrice() : null }
+                <div>
+                {
+                    <FormControl className={classes.formControl} id='indicator-form-control'>
+                            <InputLabel shrink id="indicator-select-label">
+                                Indicators
+                            </InputLabel>
+                            <Select
+                                labelId="indicator-select-label"
+                                id="indicator-chart-select"
+                                value={indicators} 
+                                onChange={handleIndicatorsChange}
+                                
+                                className={classes.selectEmpty}
+                            >
+                                <MenuItem value={'sma'}><em>SMA</em></MenuItem>
+                                <MenuItem value={'rsi'}>RSI</MenuItem>
+                                <MenuItem value={'atr'}>ATR</MenuItem>
+                                <MenuItem value={'mfi'}>MFI</MenuItem>
+                            </Select>
+                        </FormControl> 
+                }
             </div>
+
             <div>
                 {
                     financialItem ?
@@ -81,6 +121,13 @@ const FinancialItem = ({financialItem:{financialItem},getFinancialItem}) => {
                         </FormControl> : null
                 }
             </div>
+            </div>
+            <div>
+
+                {financialItem ? displayTheRightPlot() : null }
+            </div>
+            
+            
         </div>
     );
 };
