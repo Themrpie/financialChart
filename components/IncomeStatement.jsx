@@ -1,6 +1,6 @@
 import React, {useLayoutEffect, useRef, useState} from 'react';
 // Components imports
-import LineChart from "./Plots/LineChart";
+import DataTable from "./Plots/DataTable";
 import CandleStickChart from "./Plots/CandleStickChart";
 // Material UI imports
 import FormControl from "@material-ui/core/FormControl";
@@ -12,9 +12,9 @@ import {financialItemStyle} from './styles/financialItemStyle'
 import {connect} from 'react-redux';
 import PropTypes from 'prop-types'
 import {getFinancialItem} from "../actions/financialItem";
-import {getBop} from "../actions/bop";
+import {getIncomeStatement} from "../actions/incomeStatement";
 
-const Bop = ({bop:{bop},getBop}) => {
+const IncomeStatement = ({incomeStatement:{incomeStatement},getIncomeStatement}) => {
     const classes = financialItemStyle();
     const [typeOfChart,setTypeOfChart] = useState('line');
     const firstUpdate = useRef(true);
@@ -22,40 +22,39 @@ const Bop = ({bop:{bop},getBop}) => {
     useLayoutEffect(() => {
         if (firstUpdate.current) {
             firstUpdate.current = false;
-            getBop('SPY');
-            //getFinancialItem('KO');
+            getIncomeStatement('AAPL');            
             return;
         }
 
     },[]);
 
 
-    const displayTheRightPlot = () => {        
-                return (<LineChart
-                    color='brown'                    
-                    financialItemName={'BOP'}
-                    financialItem={bop}
+    const displayTheRightPlot = () => { 
+    console.log('Hola: ');       
+                return (<DataTable                    
+                    financialItemName={'Gross Profit'}
+                    financialItem={incomeStatement}
                 />);
             
     };
-
+// For some reason incomeStatement is not defined
     return (
         <div className='financial-item-big-wrapper'>
             <div>
-                {bop ? displayTheRightPlot() : null}
+                {incomeStatement ? displayTheRightPlot() : null}
             </div>
             
         </div>
     );
 };
 
-Bop.propTypes = {
-    bop: PropTypes.object.isRequired,
-    getBop: PropTypes.func.isRequired
+IncomeStatement.propTypes = {
+    incomeStatement: PropTypes.object.isRequired,
+    getIncomeStatement: PropTypes.func.isRequired
 } 
 
 const mapStateToProps = state => ({
-    bop: state.financialItem
+    incomeStatement: state.financialItem
 })
 
-export default connect(mapStateToProps,{getBop})(Bop);
+export default connect(mapStateToProps,{getIncomeStatement})(IncomeStatement);

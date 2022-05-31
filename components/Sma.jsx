@@ -14,7 +14,7 @@ import PropTypes from 'prop-types'
 import {getFinancialItem} from "../actions/financialItem";
 import {getSma} from "../actions/sma";
 
-const Sma = ({sma:{sma},getSma}) => {
+const Sma = ({sma:{sma},getSma}, symbol) => {
     const classes = financialItemStyle();
     const [typeOfChart,setTypeOfChart] = useState('line');
     const firstUpdate = useRef(true);
@@ -22,7 +22,7 @@ const Sma = ({sma:{sma},getSma}) => {
     useLayoutEffect(() => {
         if (firstUpdate.current) {
             firstUpdate.current = false;
-            getSma('SPY');
+            getSma('AAPL');
             //getFinancialItem('KO');
             return;
         }
@@ -52,7 +52,8 @@ const Sma = ({sma:{sma},getSma}) => {
 
 Sma.propTypes = {
     sma: PropTypes.object.isRequired,
-    getSma: PropTypes.func.isRequired
+    getSma: PropTypes.func.isRequired,
+
 } 
 
 const mapStateToProps = state => ({

@@ -10,6 +10,7 @@ export const getIncomeStatement = (symbol) => async dispatch => {
     let grossProfit = [];
     let totalRevenue = [];
     let costOfRevenue = [];
+    let costofGoodsAndServicesSold = [];
 
 // https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol=SPY&outputsize=full&apikey=8AMDLY6XGIMPPBBV
     try{
@@ -29,23 +30,27 @@ export const getIncomeStatement = (symbol) => async dispatch => {
                         reportedCurrency.push(data['annualReports'][key]['reportedCurrency']);
                         grossProfit.push(data['annualReports'][key]['grossProfit']);
                         totalRevenue.push(data['annualReports'][key]['totalRevenue']);
-                        costOfRevenue.push(data['annualReports'][key]['costOfRevenue'])
+                        costOfRevenue.push(data['annualReports'][key]['costOfRevenue']);
+                        costofGoodsAndServicesSold.push(data['annualReports'][key]['costofGoodsAndServicesSold']);
+                        console.log(fiscalDateEnding[key]);
                     }
+                    // This is correctly creating and filling the array with data console.log(data['annualReports'][1]);
+                    console.log("Termina el " + fiscalDateEnding[1]);
 
                 })
 
-        const financialItem = {
+        const incomeStatement = {
             symbol: finItemSymbol,
             financialChartXValues: financialChartXValuesFunction,
-            fiscalDateEndingV: fiscalDateEnding,
-            reportedCurrencyV: reportedCurrency,
-            grossProfitV: grossProfit,
-            totalRevenueV: totalRevenue,
+            financialChartCloseValues: fiscalDateEnding,
+            financialChartOpenValues: reportedCurrency,
+            financialChartHighValues: grossProfit,
+            financialChartLowValues: totalRevenue,
         };
 
         dispatch({
             type: GET_INCOME,
-            payload: financialItem
+            payload: incomeStatement
         })
     }catch (e) {
         console.log(e)

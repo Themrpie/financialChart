@@ -18,6 +18,7 @@ import Rsi from "./Rsi";
 import Atr from "./Atr";
 import Mfi from "./Mfi";
 import Bop from "./Bop";
+import Income from "./IncomeStatement";
 
 const FinancialItem = ({financialItem:{financialItem},getFinancialItem}) => {
     const classes = financialItemStyle();
@@ -40,7 +41,7 @@ const FinancialItem = ({financialItem:{financialItem},getFinancialItem}) => {
     const handleIndicatorsChange = e => {
         setIndicators(e.target.value);
     };
-
+    //Display price chart in lines or candles.
     const displayPrice = () => {
         switch (typeOfChart) {
             case 'line':
@@ -51,10 +52,8 @@ const FinancialItem = ({financialItem:{financialItem},getFinancialItem}) => {
                 return (<LineChart color='blue' financialItem={financialItem} financialItemName={financialItem.symbol}/>);
         }
     }
-    const displayCandlestick = () => {
-        return (<CandleStickChart financialItem={financialItem} financialItemName={financialItem.symbol}/>);
-    }
-
+    
+    
     const displayTheRightPlot = () => {
         console.log(financialItem)
         switch (indicators) {
@@ -67,13 +66,15 @@ const FinancialItem = ({financialItem:{financialItem},getFinancialItem}) => {
             case 'mfi':
                 return (<Mfi/>);
             case 'bop':
-                return (<Bop/>);    
+                return (<Bop/>);
+            case 'income':
+                return(<Income/>);
             default:
                 return (<Sma/>);
         }    
         
     };
-
+    //Display Price chart
     return (
         <div className='financial-item-big-wrapper'>
          <div>
@@ -93,16 +94,17 @@ const FinancialItem = ({financialItem:{financialItem},getFinancialItem}) => {
                                 displayEmpty
                                 className={classes.selectEmpty}
                             >
-                                <MenuItem value={'sma'}><em>SMA</em></MenuItem>
-                                <MenuItem value={'rsi'}>RSI</MenuItem>
-                                <MenuItem value={'atr'}>ATR</MenuItem>
-                                <MenuItem value={'mfi'}>MFI</MenuItem>
-                                <MenuItem value={'bop'}>BOP</MenuItem>
+                                <MenuItem value={'sma'}><em>Simple Moving Average</em></MenuItem>
+                                <MenuItem value={'rsi'}>Relative Strength Index</MenuItem>
+                                <MenuItem value={'atr'}>Average True Range</MenuItem>
+                                <MenuItem value={'mfi'}>Money Flow Index</MenuItem>
+                                <MenuItem value={'bop'}>Balance of Power</MenuItem>
+                                <MenuItem value={'income'}>Income Statement</MenuItem>
                             </Select>
                         </FormControl> 
                 }
             </div>
-
+            
             <div>
                 {
                     financialItem ?
@@ -125,6 +127,7 @@ const FinancialItem = ({financialItem:{financialItem},getFinancialItem}) => {
                 }
             </div>
             </div>
+         
             <div>
 
                 {financialItem ? displayTheRightPlot() : null }
