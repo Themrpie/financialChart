@@ -24,6 +24,7 @@ const FinancialItem = ({financialItem:{financialItem},getFinancialItem}) => {
     const classes = financialItemStyle();
     const [typeOfChart,setTypeOfChart] = useState('line');
     const [indicators,setIndicators] = useState('indicators');
+    const [statements,setStatements] = useState('statements');
     const firstUpdate = useRef(true);
 
     useLayoutEffect(() => {
@@ -41,6 +42,9 @@ const FinancialItem = ({financialItem:{financialItem},getFinancialItem}) => {
     const handleIndicatorsChange = e => {
         setIndicators(e.target.value);
     };
+    const handleStatementsChange = e => {
+        setStatements(e.target.value);
+    };
     //Display price chart in lines or candles.
     const displayPrice = () => {
         switch (typeOfChart) {
@@ -55,7 +59,6 @@ const FinancialItem = ({financialItem:{financialItem},getFinancialItem}) => {
     
     
     const displayTheRightPlot = () => {
-        console.log(financialItem)
         switch (indicators) {
             case 'sma':
                 return (<Sma/>);
@@ -68,12 +71,46 @@ const FinancialItem = ({financialItem:{financialItem},getFinancialItem}) => {
             case 'bop':
                 return (<Bop/>);
             case 'income':
-                return(<Income/>);
+                return(<Income statement='researchAndDevelopment'/>);
             default:
                 return (<Sma/>);
-        }    
-        
+        }        
     };
+
+    const displayStatement = () => {
+        switch(statements){
+            case 'netIncome':
+                return(<Income statement='netIncome'/>);
+            case 'grossProfit':
+                return(<Income statement='grossProfit'/>);
+            case 'totalRevenue':
+                return(<Income statement='totalRevenue'/>);
+            case 'costOfRevenue':
+                return(<Income statement='costOfRevenue'/>);
+            case 'costofGoodsAndServicesSold':
+                return(<Income statement='costofGoodsAndServicesSold'/>);
+            case 'operatingIncome':
+                return(<Income statement='operatingIncome'/>);
+            case 'researchAndDevelopment':
+                return(<Income statement='researchAndDevelopment'/>);
+            case 'operatingExpenses':
+                return(<Income statement='operatingExpenses'/>);
+            case 'sellingGeneralAndAdministrative':
+                return(<Income statement='sellingGeneralAndAdministrative'/>);
+            case 'investmentIncomeNet':
+                return(<Income statement='investmentIncomeNet'/>);
+            case 'netInterestIncome':
+                return(<Income statement='netInterestIncome'/>);
+            case 'interestIncome':
+                return(<Income statement='interestIncome'/>);
+            case 'nonInterestIncome':
+                return(<Income statement='nonInterestIncome'/>);
+            case 'otherNonOperatingIncome':
+                return(<Income statement='otherNonOperatingIncome'/>); 
+        }
+    }
+
+    
     //Display Price chart
     return (
         <div className='financial-item-big-wrapper'>
@@ -101,8 +138,52 @@ const FinancialItem = ({financialItem:{financialItem},getFinancialItem}) => {
                                 <MenuItem value={'bop'}>Balance of Power</MenuItem>
                                 <MenuItem value={'income'}>Income Statement</MenuItem>
                             </Select>
-                        </FormControl> 
+                        </FormControl>
+
+                         
                 }
+                <div>
+                <FormControl className={classes.formControl} id='indicator-form-control'>
+                            <InputLabel shrink id="indicator-select-label">
+                                Income Statements
+                            </InputLabel>
+                            <Select
+                                labelId="statements-select-label"
+                                id="statements-chart-select"
+                                value={statements} 
+                                onChange={handleStatementsChange}
+                                displayEmpty
+                                className={classes.selectEmpty}
+                            >
+                                <MenuItem value={'netIncome'}>Net Income</MenuItem>                            
+                                <MenuItem value={'grossProfit'}><em>Gross Profit</em></MenuItem>
+                                <MenuItem value={'totalRevenue'}>Total Revenue</MenuItem>
+                                <MenuItem value={'costOfRevenue'}>Cost of revenue</MenuItem>
+                                <MenuItem value={'costofGoodsAndServicesSold'}>Cost of Goods And Services</MenuItem>
+                                <MenuItem value={'operatingIncome'}>Operating Income</MenuItem>
+                                <MenuItem value={'researchAndDevelopment'}>Research & Davelopment</MenuItem>
+                                <MenuItem value={'operatingExpenses'}>Operating Expenses</MenuItem>
+                                <MenuItem value={'sellingGeneralAndAdministrative'}>Selling Gral & Admin </MenuItem>
+                                <MenuItem value={'investmentIncomeNet'}>Net Investment Income</MenuItem>
+                                <MenuItem value={'netInterestIncome'}>Net Interest Income</MenuItem>
+                                <MenuItem value={'interestIncome'}>Interest Income</MenuItem>
+                                <MenuItem value={'interestExpense'}>Interest Expense</MenuItem>
+                                <MenuItem value={'nonInterestIncome'}>Non Interest Income</MenuItem>
+                                <MenuItem value={'otherNonOperatingIncome'}>Other non Operating Income</MenuItem>
+                                <MenuItem value={'depreciation'}>Depreciation</MenuItem>
+                                <MenuItem value={'depreciationAndAmortization'}>Depreciation & Amortization</MenuItem>
+                                <MenuItem value={'incomeBeforeTax'}>Income Before Tax</MenuItem>
+                                <MenuItem value={'incomeTaxExpense'}>Tax Expense Income</MenuItem>
+                                <MenuItem value={'interestAndDebtExpense'}>Interest and Debt Expense</MenuItem>
+                                <MenuItem value={'netIncomeFromContinuingOperations'}>Continuing Operations Income Net</MenuItem>
+                                <MenuItem value={'comprehensiveIncomeNetOfTax'}>Comprehensive Income Net of Tax</MenuItem>
+                                <MenuItem value={'ebit'}>EBIT</MenuItem>
+                                <MenuItem value={'ebitda'}>EBITDA</MenuItem>
+                                
+
+                            </Select>
+                        </FormControl> 
+                </div>
             </div>
             
             <div>
@@ -132,7 +213,10 @@ const FinancialItem = ({financialItem:{financialItem},getFinancialItem}) => {
 
                 {financialItem ? displayTheRightPlot() : null }
             </div>
-            
+            <div>
+
+                {financialItem ? displayStatement() : null }
+            </div>
             
         </div>
     );

@@ -1,4 +1,4 @@
-import {GET_FINANCIAL_ITEM, GET_SMA, GET_RSI, GET_ATR, GET_MFI, GET_BOP} from "../actions/types";
+import {GET_FINANCIAL_ITEM, GET_SMA, GET_RSI, GET_ATR, GET_MFI, GET_BOP, GET_INCOME} from "../actions/types";
 
 const initialState = {
     financialItem: null,
@@ -46,7 +46,13 @@ export default function (state=initialState,action) {
             ...state,
             bop: payload
         };
-    } 
+    }
+    if (type === GET_INCOME) {
+        return{
+            ...state,
+            incomeStatement: payload
+        };
+    }  
     else {
         return state
     }
