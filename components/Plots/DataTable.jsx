@@ -49,6 +49,81 @@ const DataTable = ({financialItem,financialItemName, statement}) => {
                 return (        
             <Fragment><Plot data={[{type: 'bar', x: financialItem.fiscalDateEndingValues, y: financialItem.sellingGeneralAndAdministrativeValues},]}
             layout={{width: 900, height: 640, title: financialItemName}} options ={ {displaylogo: 'false'} }/></Fragment>
+        ); 
+        case 'investmentIncomeNet':
+                return (        
+            <Fragment><Plot data={[{type: 'bar', x: financialItem.fiscalDateEndingValues, y: financialItem.investmentIncomeNetValues},]}
+            layout={{width: 900, height: 640, title: financialItemName}} options ={ {displaylogo: 'false'} }/></Fragment>
+        );
+        case 'netInterestIncome':
+                return (        
+            <Fragment><Plot data={[{type: 'bar', x: financialItem.fiscalDateEndingValues, y: financialItem.netInterestIncomeValues},]}
+            layout={{width: 900, height: 640, title: financialItemName}} options ={ {displaylogo: 'false'} }/></Fragment>
+        );
+        case 'interestIncome':
+                return (        
+            <Fragment><Plot data={[{type: 'bar', x: financialItem.fiscalDateEndingValues, y: financialItem.interestIncomeValues},]}
+            layout={{width: 900, height: 640, title: financialItemName}} options ={ {displaylogo: 'false'} }/></Fragment>
+        );
+        case 'interestExpense':
+                return (        
+            <Fragment><Plot data={[{type: 'bar', x: financialItem.fiscalDateEndingValues, y: financialItem.interestExpenseValues},]}
+            layout={{width: 900, height: 640, title: financialItemName}} options ={ {displaylogo: 'false'} }/></Fragment>
+        );
+        case 'nonInterestIncome':
+                return (        
+            <Fragment><Plot data={[{type: 'bar', x: financialItem.fiscalDateEndingValues, y: financialItem.nonInterestIncomeValues},]}
+            layout={{width: 900, height: 640, title: financialItemName}} options ={ {displaylogo: 'false'} }/></Fragment>
+        );
+        case 'otherNonOperatingIncome':
+                return (        
+            <Fragment><Plot data={[{type: 'bar', x: financialItem.fiscalDateEndingValues, y: financialItem.otherNonOperatingIncome},]}
+            layout={{width: 900, height: 640, title: financialItemName}} options ={ {displaylogo: 'false'} }/></Fragment>
+        );
+        case 'depreciation':
+                return (        
+            <Fragment><Plot data={[{type: 'bar', x: financialItem.fiscalDateEndingValues, y: financialItem.depreciationValues},]}
+            layout={{width: 900, height: 640, title: financialItemName}} options ={ {displaylogo: 'false'} }/></Fragment>
+        );
+        case 'depreciationAndAmortization':
+                return (        
+            <Fragment><Plot data={[{type: 'bar', x: financialItem.fiscalDateEndingValues, y: financialItem.depreciationAndAmortizationValues},]}
+            layout={{width: 900, height: 640, title: financialItemName}} options ={ {displaylogo: 'false'} }/></Fragment>
+        );
+        case 'incomeBeforeTax':
+                return (        
+            <Fragment><Plot data={[{type: 'bar', x: financialItem.fiscalDateEndingValues, y: financialItem.incomeBeforeTaxValues},]}
+            layout={{width: 900, height: 640, title: financialItemName}} options ={ {displaylogo: 'false'} }/></Fragment>
+        );
+        case 'incomeTaxExpense':
+                return (        
+            <Fragment><Plot data={[{type: 'bar', x: financialItem.fiscalDateEndingValues, y: financialItem.incomeTaxExpenseValues},]}
+            layout={{width: 900, height: 640, title: financialItemName}} options ={ {displaylogo: 'false'} }/></Fragment>
+        );
+        case 'interestAndDebtExpense':
+                return (        
+            <Fragment><Plot data={[{type: 'bar', x: financialItem.fiscalDateEndingValues, y: financialItem.interestAndDebtExpenseValues},]}
+            layout={{width: 900, height: 640, title: financialItemName}} options ={ {displaylogo: 'false'} }/></Fragment>
+        );
+        case 'netIncomeFromContinuingOperations':
+                return (        
+            <Fragment><Plot data={[{type: 'bar', x: financialItem.fiscalDateEndingValues, y: financialItem.netIncomeFromContinuingOperationsValues},]}
+            layout={{width: 900, height: 640, title: financialItemName}} options ={ {displaylogo: 'false'} }/></Fragment>
+        );
+        case 'comprehensiveIncomeNetOfTax':
+                return (        
+            <Fragment><Plot data={[{type: 'bar', x: financialItem.fiscalDateEndingValues, y: financialItem.comprehensiveIncomeNetOfTaxValues},]}
+            layout={{width: 900, height: 640, title: financialItemName}} options ={ {displaylogo: 'false'} }/></Fragment>
+        ); 
+        case 'ebit':
+                return (        
+            <Fragment><Plot data={[{type: 'bar', x: financialItem.fiscalDateEndingValues, y: financialItem.ebitValues},]}
+            layout={{width: 900, height: 640, title: financialItemName}} options ={ {displaylogo: 'false'} }/></Fragment>
+        ); 
+        case 'ebitda':
+                return (        
+            <Fragment><Plot data={[{type: 'bar', x: financialItem.fiscalDateEndingValues, y: financialItem.ebitdaValues},]}
+            layout={{width: 900, height: 640, title: financialItemName}} options ={ {displaylogo: 'false'} }/></Fragment>
         );              
         default:
             return (<Fragment>

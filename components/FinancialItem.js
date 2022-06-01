@@ -19,6 +19,8 @@ import Atr from "./Atr";
 import Mfi from "./Mfi";
 import Bop from "./Bop";
 import Income from "./IncomeStatement";
+//TODO:
+//ADD symbol to state and symbol to displayStatement()
 
 const FinancialItem = ({financialItem:{financialItem},getFinancialItem}) => {
     const classes = financialItemStyle();
@@ -33,7 +35,6 @@ const FinancialItem = ({financialItem:{financialItem},getFinancialItem}) => {
             getFinancialItem('SPY');            
             return;
         }
-
     },[]);
 
     const handleChartChange = e => {
@@ -72,42 +73,13 @@ const FinancialItem = ({financialItem:{financialItem},getFinancialItem}) => {
                 return (<Bop/>);
             case 'income':
                 return(<Income statement='researchAndDevelopment'/>);
-            default:
-                return (<Sma/>);
+            
         }        
     };
 
     const displayStatement = () => {
-        switch(statements){
-            case 'netIncome':
-                return(<Income statement='netIncome'/>);
-            case 'grossProfit':
-                return(<Income statement='grossProfit'/>);
-            case 'totalRevenue':
-                return(<Income statement='totalRevenue'/>);
-            case 'costOfRevenue':
-                return(<Income statement='costOfRevenue'/>);
-            case 'costofGoodsAndServicesSold':
-                return(<Income statement='costofGoodsAndServicesSold'/>);
-            case 'operatingIncome':
-                return(<Income statement='operatingIncome'/>);
-            case 'researchAndDevelopment':
-                return(<Income statement='researchAndDevelopment'/>);
-            case 'operatingExpenses':
-                return(<Income statement='operatingExpenses'/>);
-            case 'sellingGeneralAndAdministrative':
-                return(<Income statement='sellingGeneralAndAdministrative'/>);
-            case 'investmentIncomeNet':
-                return(<Income statement='investmentIncomeNet'/>);
-            case 'netInterestIncome':
-                return(<Income statement='netInterestIncome'/>);
-            case 'interestIncome':
-                return(<Income statement='interestIncome'/>);
-            case 'nonInterestIncome':
-                return(<Income statement='nonInterestIncome'/>);
-            case 'otherNonOperatingIncome':
-                return(<Income statement='otherNonOperatingIncome'/>); 
-        }
+        return (<Income statement={statements} />);
+        
     }
 
     
@@ -161,7 +133,7 @@ const FinancialItem = ({financialItem:{financialItem},getFinancialItem}) => {
                                 <MenuItem value={'costOfRevenue'}>Cost of revenue</MenuItem>
                                 <MenuItem value={'costofGoodsAndServicesSold'}>Cost of Goods And Services</MenuItem>
                                 <MenuItem value={'operatingIncome'}>Operating Income</MenuItem>
-                                <MenuItem value={'researchAndDevelopment'}>Research & Davelopment</MenuItem>
+                                <MenuItem value={'researchAndDevelopment'}>Research & Development</MenuItem>
                                 <MenuItem value={'operatingExpenses'}>Operating Expenses</MenuItem>
                                 <MenuItem value={'sellingGeneralAndAdministrative'}>Selling Gral & Admin </MenuItem>
                                 <MenuItem value={'investmentIncomeNet'}>Net Investment Income</MenuItem>

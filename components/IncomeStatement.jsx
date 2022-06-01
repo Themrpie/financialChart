@@ -14,6 +14,9 @@ import PropTypes from 'prop-types'
 import {getFinancialItem} from "../actions/financialItem";
 import {getIncomeStatement} from "../actions/incomeStatement";
 
+//TODO:
+//ADD symbol to InconeStatement
+
 const IncomeStatement = ({incomeStatement:{incomeStatement},getIncomeStatement, statement}) => {
     const classes = financialItemStyle();
     const [typeOfChart,setTypeOfChart] = useState('line');
@@ -22,7 +25,7 @@ const IncomeStatement = ({incomeStatement:{incomeStatement},getIncomeStatement, 
     useLayoutEffect(() => {
         if (firstUpdate.current) {
             firstUpdate.current = false;
-            getIncomeStatement('AAPL');            
+            getIncomeStatement('TSLA');            
             return;
         }
 
@@ -32,7 +35,7 @@ const IncomeStatement = ({incomeStatement:{incomeStatement},getIncomeStatement, 
     const displayTheRightPlot = () => { 
         switch(statement){
             case 'grossProfit':
-                return (<DataTable financialItemName={'Gross Profit'} financialItem={incomeStatement} statement={'costofGoodsAndServicesSold'}/>);
+                return (<DataTable financialItemName={'Gross Profit'} financialItem={incomeStatement} statement={'grossProfit'}/>);
             case 'costofGoodsAndServicesSold':
                 return (<DataTable financialItemName={'Cost Of Goods and Services'} financialItem={incomeStatement} statement={'costofGoodsAndServicesSold'}/>);
             case 'netIncome':
@@ -48,7 +51,35 @@ const IncomeStatement = ({incomeStatement:{incomeStatement},getIncomeStatement, 
              case 'operatingExpenses':
                 return (<DataTable financialItemName={'Operating Expenses'} financialItem={incomeStatement} statement={'operatingExpenses'}/>);
              case 'sellingGeneralAndAdministrative':
-                return (<DataTable financialItemName={'Selling General & Admin'} financialItem={incomeStatement} statement={'sellingGeneralAndAdministrative'}/>);    
+                return (<DataTable financialItemName={'Selling General & Admin'} financialItem={incomeStatement} statement={'sellingGeneralAndAdministrative'}/>);            
+            case 'investmentIncomeNet':
+                return (<DataTable financialItemName={'Net Investmet Income'} financialItem={incomeStatement} statement={'investmentIncomeNet'}/>);
+            case 'netInterestIncome':
+                return (<DataTable financialItemName={'Net Interest Income'} financialItem={incomeStatement} statement={'netInterestIncome'}/>);
+            case 'interestIncome':
+                return (<DataTable financialItemName={'Interest Income'} financialItem={incomeStatement} statement={'interestIncome'}/>);
+            case 'interestExpense':
+                return (<DataTable financialItemName={'Interest Expense'} financialItem={incomeStatement} statement={'interestExpense'}/>);
+            case 'nonInterestIncome':
+                return (<DataTable financialItemName={'Non Interest Income'} financialItem={incomeStatement} statement={'nonInterestIncome'}/>);
+            case 'otherNonOperatingIncome':
+                return (<DataTable financialItemName={'Other Non Operating Income'} financialItem={incomeStatement} statement={'otherNonOperatingIncome'}/>);
+                case 'depreciation':
+                return (<DataTable financialItemName={'Depreciation'} financialItem={incomeStatement} statement={'depreciation'}/>);
+            case 'depreciationAndAmortization':
+                return (<DataTable financialItemName={'Depreciation & Amortization'} financialItem={incomeStatement} statement={'depreciationAndAmortization'}/>);
+            case 'incomeBeforeTax':
+                return (<DataTable financialItemName={'Income Before Tax'} financialItem={incomeStatement} statement={'incomeBeforeTax'}/>);
+            case 'interestAndDebtExpense':
+                return (<DataTable financialItemName={'Interest & Debt Expense'} financialItem={incomeStatement} statement={'interestAndDebtExpense'}/>);
+            case 'netIncomeFromContinuingOperations':
+                return (<DataTable financialItemName={'Net Income From Continuing Operations'} financialItem={incomeStatement} statement={'netIncomeFromContinuingOperations'}/>);
+            case 'comprehensiveIncomeNetOfTax':
+                return (<DataTable financialItemName={'Comprehensive Income Net of Tax'} financialItem={incomeStatement} statement={'comprehensiveIncomeNetOfTax'}/>);
+            case 'ebit':
+                return (<DataTable financialItemName={'EBIT'} financialItem={incomeStatement} statement={'ebit'}/>);
+            case 'ebitda':
+                return (<DataTable financialItemName={'EBITDA'} financialItem={incomeStatement} statement={'ebitda'}/>);
            
         } 
            
