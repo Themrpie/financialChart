@@ -2,9 +2,21 @@ import React,{Fragment} from 'react';
 import PropTypes from 'prop-types'
 import Plot from 'react-plotly.js';
 
+
+//TODO: Use state to display y: 
 const DataTable = ({financialItem,financialItemName, statement}) => {
     console.log("From DataTable: " + financialItem)
-    switch (statement) {
+    switch (statement) {        
+        case 'surprisePercentage':
+                return (        
+            <Fragment><Plot data={[{type: 'bar', x: financialItem.fiscalDateEndingValues, y: financialItem.surprisePercentage},]}
+            layout={{width: 900, height: 640, title: financialItemName}} options ={ {displaylogo: 'false'} }/></Fragment>
+        );
+        case 'earnings':
+                return (        
+            <Fragment><Plot data={[{type: 'bar', x: financialItem.fiscalDateEndingValues, y: financialItem.reportedEPSValue},]}
+            layout={{width: 900, height: 640, title: financialItemName}} options ={ {displaylogo: 'false'} }/></Fragment>
+        );
         case 'grossProfit':
                 return (        
             <Fragment><Plot data={[{type: 'bar', x: financialItem.fiscalDateEndingValues, y: financialItem.grossProfitValues},]}

@@ -13,12 +13,15 @@ import {connect} from 'react-redux';
 import PropTypes from 'prop-types'
 
 import {getFinancialItem} from "../actions/financialItem";
+import {getIncomeStatement} from "../actions/incomeStatement";
 import Sma from "./Sma";
 import Rsi from "./Rsi";
 import Atr from "./Atr";
 import Mfi from "./Mfi";
 import Bop from "./Bop";
 import Income from "./IncomeStatement";
+import Earnings from "./Earnings";
+
 //TODO:
 //ADD symbol to state and symbol to displayStatement()
 
@@ -27,16 +30,24 @@ const FinancialItem = ({financialItem:{financialItem},getFinancialItem}) => {
     const [typeOfChart,setTypeOfChart] = useState('line');
     const [indicators,setIndicators] = useState('indicators');
     const [statements,setStatements] = useState('statements');
+    const [symbol,setSymbol] = useState('symbol');
     const firstUpdate = useRef(true);
+
 
     useLayoutEffect(() => {
         if (firstUpdate.current) {
             firstUpdate.current = false;
-            getFinancialItem('SPY');            
+            getFinancialItem('TSLA');            
             return;
         }
     },[]);
 
+     const handleSymbolChange = e => {
+        //setSymbol(e.target.value);
+        //financialItem.symbol = e.target.value;
+        getFinancialItem(e.target.value);
+        // IDK why doesn't work: getIncomeStatement(e.target.value, 'quarterlyReports')
+    };
     const handleChartChange = e => {
         setTypeOfChart(e.target.value);
     };
@@ -71,23 +82,44 @@ const FinancialItem = ({financialItem:{financialItem},getFinancialItem}) => {
                 return (<Mfi/>);
             case 'bop':
                 return (<Bop/>);
-            case 'income':
-                return(<Income statement='researchAndDevelopment'/>);
+            case 'earnings':
+                return(<Earnings symbol={financialItem.symbol}/>);
+            case 'surprisePercentage':
+                return(<Earnings symbol={financialItem.symbol}/>);
+
             
         }        
     };
 
     const displayStatement = () => {
-        return (<Income statement={statements} />);
+        return (<Income statement={statements} symbol={financialItem.symbol} />);
         
     }
-
     
     //Display Price chart
     return (
         <div className='financial-item-big-wrapper'>
-         <div>
+        <FormControl className={classes.formControl} id='symbol-form-control'>
+                            <InputLabel shrink id="symbol-select-label">
+                                Symbols
+                            </InputLabel>
+                            <Select
+                                labelId="symbol-select-label"
+                                id="symbol-chart-select"
+                                value={symbol} 
+                                onChange={handleSymbolChange}
+                                displayEmpty
+                                className={classes.selectEmpty}
+                            >
+                                <MenuItem value={'SPY'}><em>SPY</em></MenuItem>
+                                <MenuItem value={'AAPL'}>Apple</MenuItem>
+                                <MenuItem value={'TSLA'}>Tesla</MenuItem>
+                                <MenuItem value={'AMZN'}>Amazon</MenuItem>
+                                <MenuItem value={'MSFT'}>Microsoft</MenuItem>                                
+                            </Select>
+                        </FormControl>
 
+         <div>
                 {financialItem ? displayPrice() : null }
                 <div>
                 {
@@ -108,13 +140,15 @@ const FinancialItem = ({financialItem:{financialItem},getFinancialItem}) => {
                                 <MenuItem value={'atr'}>Average True Range</MenuItem>
                                 <MenuItem value={'mfi'}>Money Flow Index</MenuItem>
                                 <MenuItem value={'bop'}>Balance of Power</MenuItem>
-                                <MenuItem value={'income'}>Income Statement</MenuItem>
+                                <MenuItem value={'earnings'}>Earnings</MenuItem>
+                                <MenuItem value={'surprisePercentage'}>Earnings Surprise Percentage</MenuItem>
                             </Select>
                         </FormControl>
 
                          
                 }
                 <div>
+
                 <FormControl className={classes.formControl} id='indicator-form-control'>
                             <InputLabel shrink id="indicator-select-label">
                                 Income Statements

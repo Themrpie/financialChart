@@ -15,9 +15,10 @@ import {getFinancialItem} from "../actions/financialItem";
 import {getIncomeStatement} from "../actions/incomeStatement";
 
 //TODO:
-//ADD symbol to InconeStatement
+//ADD symbol to IncomeStatement
+//ADD getIncomeStatement(symbol, timeFrame)
 
-const IncomeStatement = ({incomeStatement:{incomeStatement},getIncomeStatement, statement}) => {
+const IncomeStatement = ({incomeStatement:{incomeStatement},getIncomeStatement, statement, symbol}) => {
     const classes = financialItemStyle();
     const [typeOfChart,setTypeOfChart] = useState('line');
     const firstUpdate = useRef(true);
@@ -25,7 +26,7 @@ const IncomeStatement = ({incomeStatement:{incomeStatement},getIncomeStatement, 
     useLayoutEffect(() => {
         if (firstUpdate.current) {
             firstUpdate.current = false;
-            getIncomeStatement('TSLA');            
+            getIncomeStatement(symbol, 'quarterlyReports');            
             return;
         }
 
