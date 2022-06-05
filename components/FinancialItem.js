@@ -21,6 +21,7 @@ import Mfi from "./Mfi";
 import Bop from "./Bop";
 import Income from "./IncomeStatement";
 import Earnings from "./Earnings";
+import CashFlow from "./CashFlow";
 
 //TODO:
 //ADD symbol to state and symbol to displayStatement()
@@ -31,6 +32,7 @@ const FinancialItem = ({financialItem:{financialItem},getFinancialItem}) => {
     const [indicators,setIndicators] = useState('indicators');
     const [statements,setStatements] = useState('statements');
     const [symbol,setSymbol] = useState('symbol');
+    const [cashFlow,setCashFlow] = useState('cashFlow');
     const firstUpdate = useRef(true);
 
 
@@ -57,6 +59,10 @@ const FinancialItem = ({financialItem:{financialItem},getFinancialItem}) => {
     const handleStatementsChange = e => {
         setStatements(e.target.value);
     };
+    const handleCashFlowChange = e => {
+        setCashFlow(e.target.value);
+    }
+
     //Display price chart in lines or candles.
     const displayPrice = () => {
         switch (typeOfChart) {
@@ -86,14 +92,18 @@ const FinancialItem = ({financialItem:{financialItem},getFinancialItem}) => {
                 return(<Earnings symbol={financialItem.symbol}/>);
             case 'surprisePercentage':
                 return(<Earnings symbol={financialItem.symbol}/>);
-
-            
+            case 'operatingCashflow':
+                return(<CashFlow statement='operatingCashflow' symbol={financialItem.symbol} />);            
         }        
     };
 
     const displayStatement = () => {
         return (<Income statement={statements} symbol={financialItem.symbol} />);
         
+    }
+
+    const displayCashFlow = () => {
+        return (<CashFlow statement={cashFlow} symbol={financialItem.symbol} />);
     }
     
     //Display Price chart
@@ -142,6 +152,7 @@ const FinancialItem = ({financialItem:{financialItem},getFinancialItem}) => {
                                 <MenuItem value={'bop'}>Balance of Power</MenuItem>
                                 <MenuItem value={'earnings'}>Earnings</MenuItem>
                                 <MenuItem value={'surprisePercentage'}>Earnings Surprise Percentage</MenuItem>
+                                <MenuItem value={'operatingCashflow'}>Operating CashFlow</MenuItem>
                             </Select>
                         </FormControl>
 
@@ -190,6 +201,50 @@ const FinancialItem = ({financialItem:{financialItem},getFinancialItem}) => {
                             </Select>
                         </FormControl> 
                 </div>
+                <div>
+
+                <FormControl className={classes.formControl} id='cashFlow-form-control'>
+                            <InputLabel shrink id="cashFlow-select-label">
+                                Cash Flow
+                            </InputLabel>
+                            <Select
+                                labelId="cashFlow-select-label"
+                                id="cashFlow-chart-select"
+                                value={cashFlow} 
+                                onChange={handleCashFlowChange}
+                                displayEmpty
+                                className={classes.selectEmpty}
+                            >
+                                <MenuItem value={'operatingCashflow'}>Operating Cash Flow</MenuItem>                            
+                                <MenuItem value={'paymentsForOperatingActivities'}><em>Payments For Operating Activities</em></MenuItem>
+                                <MenuItem value={'proceedsFromOperatingActivities'}>Proceeds From Operating Activities</MenuItem>
+                                <MenuItem value={'changeInOperatingLiabilities'}>Change In Operating Liabilities</MenuItem>
+                                <MenuItem value={'changeInOperatingAssets'}>Change in Operating Assets</MenuItem>
+                                <MenuItem value={'paymentsForRepurchaseOfEquityDepletionAndAmortization'}>Payments For Payments For Repurchase Of Equity Depletion & Amortization</MenuItem>
+                                <MenuItem value={'capitalExpenditures'}>Capital Expenditures</MenuItem>
+                                <MenuItem value={'changeInReceivables'}>Change In Receivables</MenuItem>
+                                <MenuItem value={'changeInInventory'}>Change In Inventory </MenuItem>
+                                <MenuItem value={'profitLoss'}>Profit / Loss</MenuItem>
+                                <MenuItem value={'cashflowFromInvestment'}>Cashflow From Investment</MenuItem>
+                                <MenuItem value={'cashflowFromFinancing'}>Cashflow From Financing</MenuItem>
+                                <MenuItem value={'proceedsFromRepaymentsOfShortTermDebt'}>Proceeds From Repayment Of Short Term Debt</MenuItem>
+                                <MenuItem value={'paymentsForRepurchaseOfCommonStock'}>Payments For Repurchase Of Common Stock</MenuItem>
+                                <MenuItem value={'paymentsForRepurchaseOfEquity'}>Payments For Repurchase Of Equity</MenuItem>
+                                <MenuItem value={'paymentsForRepurchaseOfPreferredStock'}>Payments For Repurchase Of Preferred Stock</MenuItem>
+                                <MenuItem value={'dividendPayout'}>Dividen Payout</MenuItem>
+                                <MenuItem value={'dividendPayoutCommonStock'}>Dividen Payout Common Stock</MenuItem>
+                                <MenuItem value={'dividendPayoutPreferredStock'}>Dividend Payout Preferred Stock</MenuItem>
+                                <MenuItem value={'proceedsFromIssuanceOfCommonStock'}>Proceeds From Issuance Of Common Stock</MenuItem>
+                                <MenuItem value={'proceedsFromIssuanceOfLongTermDebtAndCapitalSecuritiesNet'}>Proceeds From Issuance Of Long Term Debt & Capital Securities Net</MenuItem>
+                                <MenuItem value={'proceedsFromIssuanceOfPreferredStock'}>Proceeds From Issuance Of Preferred Stock</MenuItem>
+                                <MenuItem value={'proceedsFromRepurchaseOfEquity'}>Proceeds From Repurchase Of Equity</MenuItem>
+                                <MenuItem value={'proceedsFromSaleOfTreasuryStock'}>Proceeds From Sale Of Trasury Stock</MenuItem>
+                                <MenuItem value={'changeInCashAndCashEquivalents'}>Change In Cash And Cash Equivalents</MenuItem>
+                                <MenuItem value={'changeInExchangeRate'}>Change In Exchange Rate</MenuItem>
+                                <MenuItem value={'netIncome'}>Net Income</MenuItem>                                
+                            </Select>
+                        </FormControl> 
+                </div>
             </div>
             
             <div>
@@ -222,6 +277,10 @@ const FinancialItem = ({financialItem:{financialItem},getFinancialItem}) => {
             <div>
 
                 {financialItem ? displayStatement() : null }
+            </div>
+            <div>
+
+                {financialItem ? displayCashFlow() : null }
             </div>
             
         </div>

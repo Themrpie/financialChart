@@ -34,8 +34,8 @@ const Earnings = ({earnings:{earnings},getEarnings, symbol}) => {
 
 
     const displayTheRightPlot = () => {  
-        
-            return (<DataTable financialItemName={'Earnings Per Share'} statement='earnings' financialItem={earnings}/>);                            
+
+            return (<DataTable financialItemName={'Earnings'} statement='earnings' financialItem={earnings}/>);                            
     };
 
     return (

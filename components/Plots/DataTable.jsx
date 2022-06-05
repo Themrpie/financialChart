@@ -6,10 +6,55 @@ import Plot from 'react-plotly.js';
 //TODO: Use state to display y: 
 const DataTable = ({financialItem,financialItemName, statement}) => {
     console.log("From DataTable: " + financialItem)
-    switch (statement) {        
-        case 'surprisePercentage':
+    switch (statement) {
+        //CashFlow
+        case 'changeInOperatingLiabilities':
                 return (        
-            <Fragment><Plot data={[{type: 'bar', x: financialItem.fiscalDateEndingValues, y: financialItem.surprisePercentage},]}
+            <Fragment><Plot data={[{type: 'bar', x: financialItem.fiscalDateEndingValues, y: financialItem.changeInOperatingLiabilitiesValues},]}
+            layout={{width: 900, height: 640, title: financialItemName}} options ={ {displaylogo: 'false'} }/></Fragment>
+        );
+        case 'operatingCashflow':
+                return (        
+            <Fragment><Plot data={[{type: 'bar', x: financialItem.fiscalDateEndingValues, y: financialItem.operatingCashflowValues},]}
+            layout={{width: 900, height: 640, title: financialItemName}} options ={ {displaylogo: 'false'} }/></Fragment>
+        );
+        case 'paymentsForOperatingActivities':
+                return (        
+            <Fragment><Plot data={[{type: 'bar', x: financialItem.fiscalDateEndingValues, y: financialItem.paymentsForOperatingActivitiesValues},]}
+            layout={{width: 900, height: 640, title: financialItemName}} options ={ {displaylogo: 'false'} }/></Fragment>
+        );        
+        case 'proceedsFromOperatingActivities':
+                return (        
+            <Fragment><Plot data={[{type: 'bar', x: financialItem.fiscalDateEndingValues, y: financialItem.proceedsFromOperatingActivitiesValues},]}
+            layout={{width: 900, height: 640, title: financialItemName}} options ={ {displaylogo: 'false'} }/></Fragment>
+        );
+        case 'changeInOperatingLiabilities':
+                return (        
+            <Fragment><Plot data={[{type: 'bar', x: financialItem.fiscalDateEndingValues, y: financialItem.changeInOperatingLiabilitiesValues},]}
+            layout={{width: 900, height: 640, title: financialItemName}} options ={ {displaylogo: 'false'} }/></Fragment>
+            );
+        case 'proceedsFromOperatingActivities':
+                return (        
+            <Fragment><Plot data={[{type: 'bar', x: financialItem.fiscalDateEndingValues, y: financialItem.proceedsFromOperatingActivitiesValues},]}
+            layout={{width: 900, height: 640, title: financialItemName}} options ={ {displaylogo: 'false'} }/></Fragment>
+        );
+        case 'proceedsFromOperatingActivities':
+                return (        
+            <Fragment><Plot data={[{type: 'bar', x: financialItem.fiscalDateEndingValues, y: financialItem.proceedsFromOperatingActivitiesValues},]}
+            layout={{width: 900, height: 640, title: financialItemName}} options ={ {displaylogo: 'false'} }/></Fragment>
+        );
+        case 'proceedsFromOperatingActivities':
+                return (        
+            <Fragment><Plot data={[{type: 'bar', x: financialItem.fiscalDateEndingValues, y: financialItem.proceedsFromOperatingActivitiesValues},]}
+            layout={{width: 900, height: 640, title: financialItemName}} options ={ {displaylogo: 'false'} }/></Fragment>
+        );
+
+
+        //Earnings
+    
+        case 'surpriseEARNIGASDJINASKJHD':
+                return (        
+            <Fragment><Plot data={[{type: 'bar', x: financialItem.fiscalDateEndingValues, y: financialItem.reportedEPSValue},]}
             layout={{width: 900, height: 640, title: financialItemName}} options ={ {displaylogo: 'false'} }/></Fragment>
         );
         case 'earnings':
@@ -17,6 +62,9 @@ const DataTable = ({financialItem,financialItemName, statement}) => {
             <Fragment><Plot data={[{type: 'bar', x: financialItem.fiscalDateEndingValues, y: financialItem.reportedEPSValue},]}
             layout={{width: 900, height: 640, title: financialItemName}} options ={ {displaylogo: 'false'} }/></Fragment>
         );
+
+
+        // INCOME STATEMENTS
         case 'grossProfit':
                 return (        
             <Fragment><Plot data={[{type: 'bar', x: financialItem.fiscalDateEndingValues, y: financialItem.grossProfitValues},]}
