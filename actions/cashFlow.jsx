@@ -114,9 +114,9 @@ export const getCashFlow = (symbol, timeFrame) => async dispatch => {
             proceedsFromIssuanceOfPreferredStockValues: proceedsFromIssuanceOfPreferredStock,
             proceedsFromIssuanceOfPreferredStockValues: proceedsFromIssuanceOfPreferredStock,
             proceedsFromSaleOfTreasuryStockValues: proceedsFromSaleOfTreasuryStock,
-            changeInCashAndCashEquivalentsValue: changeInCashAndCashEquivalents,
-            changeInExchangeRateValue: changeInExchangeRate,
-            netIncomeValue: netIncome,
+            changeInCashAndCashEquivalentsValues: changeInCashAndCashEquivalents,
+            changeInExchangeRateValues: changeInExchangeRate,
+            netIncomeValues: netIncome,
         };
 
         dispatch({

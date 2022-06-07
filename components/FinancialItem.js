@@ -13,7 +13,6 @@ import {connect} from 'react-redux';
 import PropTypes from 'prop-types'
 
 import {getFinancialItem} from "../actions/financialItem";
-import {getIncomeStatement} from "../actions/incomeStatement";
 import Sma from "./Sma";
 import Rsi from "./Rsi";
 import Atr from "./Atr";
@@ -22,6 +21,7 @@ import Bop from "./Bop";
 import Income from "./IncomeStatement";
 import Earnings from "./Earnings";
 import CashFlow from "./CashFlow";
+import BalanceSheet from "./BalanceSheet"
 
 //TODO:
 //ADD symbol to state and symbol to displayStatement()
@@ -33,6 +33,7 @@ const FinancialItem = ({financialItem:{financialItem},getFinancialItem}) => {
     const [statements,setStatements] = useState('statements');
     const [symbol,setSymbol] = useState('symbol');
     const [cashFlow,setCashFlow] = useState('cashFlow');
+    const [balanceSheet, setBalanceSheet] = useState('balanceSheet');
     const firstUpdate = useRef(true);
 
 
@@ -61,6 +62,9 @@ const FinancialItem = ({financialItem:{financialItem},getFinancialItem}) => {
     };
     const handleCashFlowChange = e => {
         setCashFlow(e.target.value);
+    }
+    const handleBalanceSheetChange = e => {
+        setBalanceSheet(e.target.value);
     }
 
     //Display price chart in lines or candles.
@@ -92,8 +96,8 @@ const FinancialItem = ({financialItem:{financialItem},getFinancialItem}) => {
                 return(<Earnings symbol={financialItem.symbol}/>);
             case 'surprisePercentage':
                 return(<Earnings symbol={financialItem.symbol}/>);
-            case 'operatingCashflow':
-                return(<CashFlow statement='operatingCashflow' symbol={financialItem.symbol} />);            
+            case 'totalAssets':
+                return(<BalanceSheet statement='totalAssets' symbol={financialItem.symbol} />);            
         }        
     };
 
@@ -104,6 +108,10 @@ const FinancialItem = ({financialItem:{financialItem},getFinancialItem}) => {
 
     const displayCashFlow = () => {
         return (<CashFlow statement={cashFlow} symbol={financialItem.symbol} />);
+    }
+
+    const displayBalanceSheet = () => {
+        return (<BalanceSheet statement={balanceSheet} symbol={financialItem.symbol} />);
     }
     
     //Display Price chart
@@ -152,7 +160,7 @@ const FinancialItem = ({financialItem:{financialItem},getFinancialItem}) => {
                                 <MenuItem value={'bop'}>Balance of Power</MenuItem>
                                 <MenuItem value={'earnings'}>Earnings</MenuItem>
                                 <MenuItem value={'surprisePercentage'}>Earnings Surprise Percentage</MenuItem>
-                                <MenuItem value={'operatingCashflow'}>Operating CashFlow</MenuItem>
+                                <MenuItem value={'totalAssets'}>Total Assets</MenuItem>
                             </Select>
                         </FormControl>
 
@@ -245,6 +253,59 @@ const FinancialItem = ({financialItem:{financialItem},getFinancialItem}) => {
                             </Select>
                         </FormControl> 
                 </div>
+
+                <div>
+
+                <FormControl className={classes.formControl} id='balanceSheet-form-control'>
+                            <InputLabel shrink id="balanceSheet-select-label">
+                                Balance Sheet
+                            </InputLabel>
+                            <Select
+                                labelId="balanceSheet-select-label"
+                                id="balanceSheet-chart-select"
+                                value={balanceSheet} 
+                                onChange={handleBalanceSheetChange}
+                                displayEmpty
+                                className={classes.selectEmpty}
+                            >
+                                <MenuItem value={'totalAssets'}>Total Assets</MenuItem>                            
+                                <MenuItem value={'totalCurrentAssets'}><em>Total Current Assets</em></MenuItem>
+                                <MenuItem value={'cashAndCashEquivalentsAtCarryingValue'}>Cash And Cash Equivalents At Carrying Value</MenuItem>
+                                <MenuItem value={'cashAndShortTermInvestments'}>Cash And Short Term Investments</MenuItem>
+                                <MenuItem value={'inventory'}>Inventory</MenuItem>
+                                <MenuItem value={'currentNetReceivables'}>Current Net Receivables</MenuItem>
+                                <MenuItem value={'totalNonCurrentAssets'}>Total Non Curren Assets</MenuItem>
+                                <MenuItem value={'propertyPlantEquipment'}>Property Plant Equipment</MenuItem>
+                                <MenuItem value={'accumulatedDepreciationAmortizationPPE'}>Accumulated Depreciation Amortization PPE </MenuItem>
+                                <MenuItem value={'intangibleAssets'}>Intangible Assets</MenuItem>
+                                <MenuItem value={'intangibleAssetsExcludingGoodwill'}>Intangible Assets Excluding Goodwill</MenuItem>
+                                <MenuItem value={'goodwill'}>Goodwill</MenuItem>
+                                <MenuItem value={'investments'}>Investments</MenuItem>
+                                <MenuItem value={'shortTermInvestments'}>Short Term Investments</MenuItem>
+                                <MenuItem value={'otherCurrentAssets'}>Other Current Assets</MenuItem>
+                                <MenuItem value={'otherNonCurrrentAssets'}>Other Non Currrent Assets</MenuItem>
+                                <MenuItem value={'totalLiabilities'}>Total Liabilities</MenuItem>
+                                <MenuItem value={'totalCurrentLiabilities'}>Total Current Liabilities</MenuItem>
+                                <MenuItem value={'currentAccountsPayable'}>Current Accounts Payable</MenuItem>
+                                <MenuItem value={'deferredRevenue'}>Deferred Revenue</MenuItem>
+                                <MenuItem value={'currentDebt'}>Current Debt</MenuItem>
+                                <MenuItem value={'shortTermDebt'}>Short Term Debt</MenuItem>
+                                <MenuItem value={'totalNonCurrentLiabilities'}>Total Non Current Liabilities</MenuItem>
+                                <MenuItem value={'capitalLeaseObligations'}>Capital Lease Obligations</MenuItem>
+                                <MenuItem value={'longTermDebt'}>Long Term Debt</MenuItem>
+                                <MenuItem value={'currentLongTermDebt'}>Current Long Term Debt</MenuItem>
+                                <MenuItem value={'longTermDebtNoncurrent'}>Long Term Debt Noncurrent</MenuItem>                                
+                                <MenuItem value={'shortLongTermDebtTotal'}>Short Long Term Debt Total</MenuItem>
+                                <MenuItem value={'otherCurrentLiabilities'}>Other Current Liabilities</MenuItem>
+                                <MenuItem value={'otherNonCurrentLiabilities'}>Other Non Current Liabilities</MenuItem>
+                                <MenuItem value={'totalShareholderEquity'}>Total Shareholder Equity</MenuItem>
+                                <MenuItem value={'treasuryStock'}>TreasuryStock</MenuItem>
+                                <MenuItem value={'retainedEarnings'}>RetainedEarnings</MenuItem>
+                                <MenuItem value={'commonStock'}>Common Stock</MenuItem>
+                                <MenuItem value={'commonStockSharesOutstanding'}>Common Stock Shares Outstanding</MenuItem>                              
+                            </Select>
+                        </FormControl> 
+                </div>
             </div>
             
             <div>
@@ -275,6 +336,11 @@ const FinancialItem = ({financialItem:{financialItem},getFinancialItem}) => {
                 {financialItem ? displayTheRightPlot() : null }
             </div>
             <div>
+                {financialItem ? displayBalanceSheet() : null }
+            </div>
+
+
+            <div>
 
                 {financialItem ? displayStatement() : null }
             </div>
@@ -282,6 +348,7 @@ const FinancialItem = ({financialItem:{financialItem},getFinancialItem}) => {
 
                 {financialItem ? displayCashFlow() : null }
             </div>
+
             
         </div>
     );
