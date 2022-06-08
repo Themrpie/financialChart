@@ -8,3 +8,4 @@ export const GET_INCOME = 'GET_INCOME';
 export const GET_EARNINGS = 'GET_EARNINGS';
 export const GET_CASHFLOW = 'GET_CASHFLOW';
 export const GET_BALANCESHEET = 'GET_BALANCESHEET'
+export const GET_OVERVIEW = 'GET_OVERVIEW';

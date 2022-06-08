@@ -22,6 +22,7 @@ import Income from "./IncomeStatement";
 import Earnings from "./Earnings";
 import CashFlow from "./CashFlow";
 import BalanceSheet from "./BalanceSheet"
+import CompanyOverview from "./CompanyOverview"
 
 //TODO:
 //ADD symbol to state and symbol to displayStatement()
@@ -96,8 +97,8 @@ const FinancialItem = ({financialItem:{financialItem},getFinancialItem}) => {
                 return(<Earnings symbol={financialItem.symbol}/>);
             case 'surprisePercentage':
                 return(<Earnings symbol={financialItem.symbol}/>);
-            case 'totalAssets':
-                return(<BalanceSheet statement='totalAssets' symbol={financialItem.symbol} />);            
+            case 'overview':
+                return(<CompanyOverview symbol={financialItem.symbol} />);            
         }        
     };
 
@@ -160,7 +161,7 @@ const FinancialItem = ({financialItem:{financialItem},getFinancialItem}) => {
                                 <MenuItem value={'bop'}>Balance of Power</MenuItem>
                                 <MenuItem value={'earnings'}>Earnings</MenuItem>
                                 <MenuItem value={'surprisePercentage'}>Earnings Surprise Percentage</MenuItem>
-                                <MenuItem value={'totalAssets'}>Total Assets</MenuItem>
+                                <MenuItem value={'overview'}>Overview</MenuItem>
                             </Select>
                         </FormControl>
 
