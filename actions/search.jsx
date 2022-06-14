@@ -17,13 +17,14 @@ export const getSearch = (keywords) => async dispatch => {
             )
             .then(
                 function(data) {                    
-                    for (let key in data) {
-                        financialChartXValuesFunction.push(key);
-                        results.push(data[key][1]['1. symbol']);
+                    for (let key in data['bestMatches']) {
+                        console.log('desde search: ' + key)
+                        financialChartXValuesFunction.push([key]);
+                        results.push(data['bestMatches'][key]['1. symbol']);
                     }
 
                 })
-            console.log('Desde getSearch' + results)
+            // I dont know why this doesnt work: console.log('Desde getSearch' + results[1])
         const search = {
             financialChartXValues: financialChartXValuesFunction,
             resultsValues: results,
