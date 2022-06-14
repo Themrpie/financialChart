@@ -1,4 +1,4 @@
-import {GET_FINANCIAL_ITEM, GET_SMA, GET_RSI, GET_ATR, GET_MFI, GET_BOP, GET_INCOME, GET_EARNINGS, GET_CASHFLOW} from "../actions/types";
+import {GET_FINANCIAL_ITEM, GET_SMA, GET_RSI, GET_ATR, GET_MFI, GET_BOP, GET_INCOME, GET_EARNINGS, GET_CASHFLOW, GET_BALANCESHEET, GET_OVERVIEW, GET_SEARCH} from "../actions/types";
 
 const initialState = {
     financialItem: null,
@@ -65,6 +65,24 @@ export default function (state=initialState,action) {
             cashFlow: payload
         };
     }  
+    if (type === GET_BALANCESHEET) {
+        return{
+            ...state,
+            balanceSheet: payload
+        };
+    }
+    if (type === GET_OVERVIEW) {
+        return{
+            ...state,
+            overview: payload
+        };
+    }
+    if (type === GET_SEARCH) {
+        return{
+            ...state,
+            search: payload
+        };
+    }
     else {
         return state
     }

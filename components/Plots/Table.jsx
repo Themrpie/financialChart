@@ -9,13 +9,15 @@ const Table = ({financialItem}) => {
     return (        
             <Fragment><Plot data={[{
                 type: 'table', 
-                columnwidth: [150,600,1000,900,600,500,1000,1000,1000],
-                header: {values: financialItem.financialChartXValues, line: {width: 50, color: 'green'}}, 
-                cells: {values: financialItem.informationValues, font: {family: "Arial", size: 15, color: ["black"]}, line: {width: 50, color: 'red'}, 
+                columnwidth: [80,400],
+                header : { values: [["<b>Description</b>"], ["<b>Information</b>"]], fill: {color: '#119DFF'}, },
+                cells: { align: "left", values: [financialItem.financialChartXValues,financialItem.informationValues], 
+                font: {family: "Arial", size: 12, color: ["black"]}, line: {width: 1, color: 'grey'},
+                fill: {color: ['#119DFF', 'white']},  
                 },
 
         },]}
-            layout={{width: 900, height: 330, title: 'Company Overview'}} options ={ {displaylogo: 'false'} }/></Fragment>
+            layout={{width: 900, height: 1220, title: 'Company Overview'}} options ={ {displaylogo: 'false'} }/></Fragment>
         );
     
         

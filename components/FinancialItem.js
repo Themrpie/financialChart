@@ -5,6 +5,9 @@ import CandleStickChart from "./Plots/CandleStickChart";
 // Material UI imports
 import FormControl from "@material-ui/core/FormControl";
 import InputLabel from "@material-ui/core/InputLabel";
+import TextField from "@material-ui/core/TextField";
+import SearchBar from "@material-ui/core/TextField";
+
 import Select from "@material-ui/core/Select";
 import MenuItem from "@material-ui/core/MenuItem";
 import {financialItemStyle} from './styles/financialItemStyle'
@@ -13,6 +16,7 @@ import {connect} from 'react-redux';
 import PropTypes from 'prop-types'
 
 import {getFinancialItem} from "../actions/financialItem";
+import {getSearch} from "../actions/search";
 import Sma from "./Sma";
 import Rsi from "./Rsi";
 import Atr from "./Atr";
@@ -21,8 +25,9 @@ import Bop from "./Bop";
 import Income from "./IncomeStatement";
 import Earnings from "./Earnings";
 import CashFlow from "./CashFlow";
-import BalanceSheet from "./BalanceSheet"
-import CompanyOverview from "./CompanyOverview"
+import BalanceSheet from "./BalanceSheet";
+import CompanyOverview from "./CompanyOverview";
+import Search from "./Search";
 
 //TODO:
 //ADD symbol to state and symbol to displayStatement()
@@ -35,6 +40,8 @@ const FinancialItem = ({financialItem:{financialItem},getFinancialItem}) => {
     const [symbol,setSymbol] = useState('symbol');
     const [cashFlow,setCashFlow] = useState('cashFlow');
     const [balanceSheet, setBalanceSheet] = useState('balanceSheet');
+    const [search, setSearch] = useState('search');
+
     const firstUpdate = useRef(true);
 
 
@@ -67,6 +74,13 @@ const FinancialItem = ({financialItem:{financialItem},getFinancialItem}) => {
     const handleBalanceSheetChange = e => {
         setBalanceSheet(e.target.value);
     }
+    const handleSearchChange = e => {
+        if (e.target.value.length >= 2){
+        setSearch(e.target.value);
+        console.log('handleSearchChange')    
+        }
+        
+    }
 
     //Display price chart in lines or candles.
     const displayPrice = () => {
@@ -80,7 +94,7 @@ const FinancialItem = ({financialItem:{financialItem},getFinancialItem}) => {
         }
     }
     
-    
+    //Display indicators
     const displayTheRightPlot = () => {
         switch (indicators) {
             case 'sma':
@@ -103,8 +117,7 @@ const FinancialItem = ({financialItem:{financialItem},getFinancialItem}) => {
     };
 
     const displayStatement = () => {
-        return (<Income statement={statements} symbol={financialItem.symbol} />);
-        
+        return (<Income statement={statements} symbol={financialItem.symbol} />);    
     }
 
     const displayCashFlow = () => {
@@ -115,9 +128,31 @@ const FinancialItem = ({financialItem:{financialItem},getFinancialItem}) => {
         return (<BalanceSheet statement={balanceSheet} symbol={financialItem.symbol} />);
     }
     
-    //Display Price chart
+    const displaySearch = () => {
+        return (<SearchBar
+          id="searchBar"
+          defaultValue={financialItem.symbol}
+          fullWidth
+          label="Search symbol"
+          variant="outlined" 
+          onChange={handleSearchChange}
+        />);
+    }
+    const displayList = () => {
+        return (<Search keywords = {search} />);
+    }
+
     return (
+
         <div className='financial-item-big-wrapper'>
+        <div>
+
+                {financialItem ? displaySearch() : null }
+            </div> 
+            <div>
+
+                {financialItem ? displayList() : null }
+            </div> 
         <FormControl className={classes.formControl} id='symbol-form-control'>
                             <InputLabel shrink id="symbol-select-label">
                                 Symbols
@@ -350,7 +385,7 @@ const FinancialItem = ({financialItem:{financialItem},getFinancialItem}) => {
                 {financialItem ? displayCashFlow() : null }
             </div>
 
-            
+                        
         </div>
     );
 };
