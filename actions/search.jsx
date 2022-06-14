@@ -18,7 +18,6 @@ export const getSearch = (keywords) => async dispatch => {
             .then(
                 function(data) {                    
                     for (let key in data['bestMatches']) {
-                        console.log('desde search: ' + key)
                         financialChartXValuesFunction.push([key]);
                         results.push(data['bestMatches'][key]['1. symbol']);
                     }

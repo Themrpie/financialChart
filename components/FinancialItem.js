@@ -40,7 +40,7 @@ const FinancialItem = ({financialItem:{financialItem},getFinancialItem}) => {
     const [symbol,setSymbol] = useState('symbol');
     const [cashFlow,setCashFlow] = useState('cashFlow');
     const [balanceSheet, setBalanceSheet] = useState('balanceSheet');
-    const [search, setSearch] = useState('search');
+    const [search, setSearch] = useState('chi'); //Search bar suggestions are coming from here but they don't change when I use setSearch in handleSearchChange
 
     const firstUpdate = useRef(true);
 
@@ -75,10 +75,11 @@ const FinancialItem = ({financialItem:{financialItem},getFinancialItem}) => {
         setBalanceSheet(e.target.value);
     }
     const handleSearchChange = e => {
-        if (e.target.value.length >= 2){
-        setSearch(e.target.value);
         console.log('handleSearchChange')    
-        }
+        //if (e.target.value.length >= 2){
+        setSearch(e.target.value);
+        getSearch(e.target.value);
+        //}
         
     }
 

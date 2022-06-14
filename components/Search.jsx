@@ -17,7 +17,7 @@ import {getSearch} from "../actions/search";
 const Search = ({search:{search},getSearch, keywords}) => {
     
     const classes = financialItemStyle();
-    const [typeOfChart,setTypeOfChart] = useState('line');
+    
     const firstUpdate = useRef(true);
 
     useLayoutEffect(() => {
@@ -29,10 +29,17 @@ const Search = ({search:{search},getSearch, keywords}) => {
 
     },[]);
 
-
+    //TO DO: This function should return a list  element <li> for every value in search.resultsValues
+    //For some reason when keywords change (TextField Input) in FinancialItem.js, this function is not changing the output as it does on every other component.
     const displayTheRightPlot = () => {
-        console.log('Desde displayTheRightPlot Search ' + search.financialChartXValues)            
-        return (<ul><li key='hola'>{search.resultsValues.toString()}</li></ul>);             
+        console.log('Desde displayTheRightPlot resultsValues:' + search.resultsValues[1])
+        return (<ul><li key='hola'>{search.resultsValues.toString()}</li></ul>);
+        //search.resultsValues.map((result) => {
+          //  return (<ul><li key='hola'>{result.toString()}</li></ul>);              
+        //})            
+        //search.map((result) => {
+            //return (<ul><li key='hola'>{search.resultsValues.toString()}</li></ul>);             
+        //})
     };
 
     return (
