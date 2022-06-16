@@ -32,7 +32,7 @@ import Search from "./Search";
 //TODO:
 //ADD symbol to state and symbol to displayStatement()
 
-const FinancialItem = ({financialItem:{financialItem},getFinancialItem}) => {
+const FinancialItem = ({financialItem:{financialItem},getFinancialItem, getSearch}) => {
     const classes = financialItemStyle();
     const [typeOfChart,setTypeOfChart] = useState('line');
     const [indicators,setIndicators] = useState('indicators');
@@ -400,4 +400,4 @@ const mapStateToProps = state => ({
     financialItem: state.financialItem
 })
 
-export default connect(mapStateToProps,{getFinancialItem})(FinancialItem);
+export default connect(mapStateToProps,{getFinancialItem, getSearch})(FinancialItem);
