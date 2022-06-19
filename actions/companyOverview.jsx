@@ -24,7 +24,7 @@ export const getOverview = (symbol) => async dispatch => {
                     for (let key in data) {
                         financialChartXValuesFunction.push(key);
                         information.push(data[key]);
-                        console.log("Loop "+ key);                                               
+                        
                     }
                     // This is correctly creating and filling the array with data console.log(data[timeFrame][1]);                    
                 })

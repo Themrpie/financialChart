@@ -17,6 +17,10 @@ import PropTypes from 'prop-types'
 
 import {getFinancialItem} from "../actions/financialItem";
 import {getSearch} from "../actions/search";
+import {getBalanceSheet} from "../actions/balanceSheet";
+import {getCashFlow} from "../actions/cashFlow";
+import {getIncomeStatement} from "../actions/incomeStatement";
+
 import Sma from "./Sma";
 import Rsi from "./Rsi";
 import Atr from "./Atr";
@@ -29,10 +33,7 @@ import BalanceSheet from "./BalanceSheet";
 import CompanyOverview from "./CompanyOverview";
 import Search from "./Search";
 
-//TODO:
-//ADD symbol to state and symbol to displayStatement()
-
-const FinancialItem = ({financialItem:{financialItem},getFinancialItem, getSearch}) => {
+const FinancialItem = ({financialItem:{financialItem},getFinancialItem, getSearch, getBalanceSheet, getCashFlow, getIncomeStatement}) => {
     const classes = financialItemStyle();
     const [typeOfChart,setTypeOfChart] = useState('line');
     const [indicators,setIndicators] = useState('indicators');
@@ -40,7 +41,7 @@ const FinancialItem = ({financialItem:{financialItem},getFinancialItem, getSearc
     const [symbol,setSymbol] = useState('symbol');
     const [cashFlow,setCashFlow] = useState('cashFlow');
     const [balanceSheet, setBalanceSheet] = useState('balanceSheet');
-    const [search, setSearch] = useState('chi'); //Search bar suggestions are coming from here but they don't change when I use setSearch in handleSearchChange
+    const [search, setSearch] = useState('coca'); 
 
     const firstUpdate = useRef(true);
 
@@ -54,10 +55,13 @@ const FinancialItem = ({financialItem:{financialItem},getFinancialItem, getSearc
     },[]);
 
      const handleSymbolChange = e => {
+        //IF YOU INSERT TOO MANY REQUEST HERE YOU WILL MAKE MORE API REQUESTS THAN YOU CAN WITH A FREE API
         //setSymbol(e.target.value);
-        //financialItem.symbol = e.target.value;
         getFinancialItem(e.target.value);
-        // IDK why doesn't work: getIncomeStatement(e.target.value, 'quarterlyReports')
+        //getBalanceSheet(e.target.value, 'quarterlyReports');
+        //getCashFlow(e.target.value, 'quarterlyReports');
+        getIncomeStatement(e.target.value, 'quarterlyReports');
+        
     };
     const handleChartChange = e => {
         setTypeOfChart(e.target.value);
@@ -74,8 +78,7 @@ const FinancialItem = ({financialItem:{financialItem},getFinancialItem, getSearc
     const handleBalanceSheetChange = e => {
         setBalanceSheet(e.target.value);
     }
-    const handleSearchChange = e => {
-        console.log('handleSearchChange')    
+    const handleSearchChange = e => {        
         //if (e.target.value.length >= 2){
         setSearch(e.target.value);
         getSearch(e.target.value);
@@ -398,6 +401,8 @@ FinancialItem.propTypes = {
 
 const mapStateToProps = state => ({
     financialItem: state.financialItem
+    //ADD other states?
 })
 
-export default connect(mapStateToProps,{getFinancialItem, getSearch})(FinancialItem);
+//This may not be the way to do it, as sat mapStateToProps should not be used with async functions as I' doing
+export default connect(mapStateToProps,{getFinancialItem, getSearch, getBalanceSheet, getCashFlow, getIncomeStatement})(FinancialItem);
