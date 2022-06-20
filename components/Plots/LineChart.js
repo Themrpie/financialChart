@@ -15,7 +15,10 @@ const LineChart = ({financialItem,financialItemName,color}) => {
                         marker: {color: color},
                     }
                 ]}
-                layout={{width: 900, height: 640, title: financialItemName}}
+                layout={{width: 900, height: 640, 
+                    title: {text:financialItemName,font: {size: 24},xref: 'paper',},
+                    plot_bgcolor:"#FFF3", paper_bgcolor:"#FFF3",
+                }}
                 options ={ {displaylogo: 'true'} }
             />
         </Fragment>

@@ -41,7 +41,7 @@ const FinancialItem = ({financialItem:{financialItem},getFinancialItem, getSearc
     const [symbol,setSymbol] = useState('symbol');
     const [cashFlow,setCashFlow] = useState('cashFlow');
     const [balanceSheet, setBalanceSheet] = useState('balanceSheet');
-    const [search, setSearch] = useState('coca'); 
+    const [search, setSearch] = useState(''); 
 
     const firstUpdate = useRef(true);
 
@@ -58,8 +58,8 @@ const FinancialItem = ({financialItem:{financialItem},getFinancialItem, getSearc
         //IF YOU INSERT TOO MANY REQUEST HERE YOU WILL MAKE MORE API REQUESTS THAN YOU CAN WITH A FREE API
         //setSymbol(e.target.value);
         getFinancialItem(e.target.value);
-        //getBalanceSheet(e.target.value, 'quarterlyReports');
-        //getCashFlow(e.target.value, 'quarterlyReports');
+        getBalanceSheet(e.target.value, 'quarterlyReports');
+        getCashFlow(e.target.value, 'quarterlyReports');
         getIncomeStatement(e.target.value, 'quarterlyReports');
         
     };
@@ -176,6 +176,27 @@ const FinancialItem = ({financialItem:{financialItem},getFinancialItem, getSearc
                                 <MenuItem value={'MSFT'}>Microsoft</MenuItem>                                
                             </Select>
                         </FormControl>
+                        
+                {
+                    financialItem ?
+                        <FormControl className={classes.formControl} id='stock-type-of-chart-form-control'>
+                            <InputLabel shrink id="type-of-chart-select-label">
+                                Type of Chart
+                            </InputLabel>
+                            <Select
+                                labelId="type-of-chart-select-label"
+                                id="type-of-chart-select"
+                                value={typeOfChart}
+                                onChange={handleChartChange}
+                                displayEmpty
+                                className={classes.selectEmpty}
+                            >
+                                <MenuItem value={'line'}><em>Line</em></MenuItem>
+                                <MenuItem value={'candlestick'}>CandleStick</MenuItem>
+                            </Select>
+                        </FormControl> : null
+                }
+            
 
          <div>
                 {financialItem ? displayPrice() : null }
@@ -206,8 +227,6 @@ const FinancialItem = ({financialItem:{financialItem},getFinancialItem, getSearc
 
                          
                 }
-                <div>
-
                 <FormControl className={classes.formControl} id='indicator-form-control'>
                             <InputLabel shrink id="indicator-select-label">
                                 Income Statements
@@ -248,10 +267,7 @@ const FinancialItem = ({financialItem:{financialItem},getFinancialItem, getSearc
 
                             </Select>
                         </FormControl> 
-                </div>
-                <div>
-
-                <FormControl className={classes.formControl} id='cashFlow-form-control'>
+                        <FormControl className={classes.formControl} id='cashFlow-form-control'>
                             <InputLabel shrink id="cashFlow-select-label">
                                 Cash Flow
                             </InputLabel>
@@ -291,12 +307,8 @@ const FinancialItem = ({financialItem:{financialItem},getFinancialItem, getSearc
                                 <MenuItem value={'changeInExchangeRate'}>Change In Exchange Rate</MenuItem>
                                 <MenuItem value={'netIncome'}>Net Income</MenuItem>                                
                             </Select>
-                        </FormControl> 
-                </div>
-
-                <div>
-
-                <FormControl className={classes.formControl} id='balanceSheet-form-control'>
+                        </FormControl>
+                        <FormControl className={classes.formControl} id='balanceSheet-form-control'>
                             <InputLabel shrink id="balanceSheet-select-label">
                                 Balance Sheet
                             </InputLabel>
@@ -344,31 +356,23 @@ const FinancialItem = ({financialItem:{financialItem},getFinancialItem, getSearc
                                 <MenuItem value={'commonStock'}>Common Stock</MenuItem>
                                 <MenuItem value={'commonStockSharesOutstanding'}>Common Stock Shares Outstanding</MenuItem>                              
                             </Select>
-                        </FormControl> 
+                        </FormControl>  
+                <div>
+
+                
+                </div>
+                <div>
+
+                
+                </div>
+
+                <div>
+
+                
                 </div>
             </div>
             
-            <div>
-                {
-                    financialItem ?
-                        <FormControl className={classes.formControl} id='stock-type-of-chart-form-control'>
-                            <InputLabel shrink id="type-of-chart-select-label">
-                                Type of Chart
-                            </InputLabel>
-                            <Select
-                                labelId="type-of-chart-select-label"
-                                id="type-of-chart-select"
-                                value={typeOfChart}
-                                onChange={handleChartChange}
-                                displayEmpty
-                                className={classes.selectEmpty}
-                            >
-                                <MenuItem value={'line'}><em>Line</em></MenuItem>
-                                <MenuItem value={'candlestick'}>CandleStick</MenuItem>
-                            </Select>
-                        </FormControl> : null
-                }
-            </div>
+            
             </div>
          
             <div>
